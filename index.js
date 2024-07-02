@@ -8,8 +8,7 @@ const IP_INFO_SECRET_KEY = process.env.IP_INFO_SECRET_KEY
 const OPEN_WEATHER_MAP_API_KEY = process.env.OPEN_WEATHER_MAP_API_KEY
 const PORT = process.env.PORT
 
-// app.get('/api/hello', async (req, res) => {
-app.get('/', async (req, res) => {
+app.get('/api/hello', async (req, res) => {
     const visitor_name = req.query.visitor_name || "Guest"
 
     const client_ip = await get_client_ip(res)
@@ -77,6 +76,8 @@ const get_temperature = async (lon, lat) => {
     return temp
 }
 
+app.get('*', async (req, res) => res.status(404).json({"message": "Sorry, we have nothing on that route!"}))
+
 app.listen(PORT, () => {
-    console.log(`app is listening on port: ${PORT}...`)
+    console.log(`app is listening on port: ${PORT}`)
 })
